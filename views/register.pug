@@ -1,0 +1,41 @@
+html
+
+   head
+
+      link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css", integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65", crossorigin="anonymous")
+
+      script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js", integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V", crossorigin="anonymous")
+
+   body
+
+      if info
+
+         h2.alert.alert-secondary=info
+
+      if warn
+
+         h2.alert.alert-warning #{warn}
+
+      if wrongInput
+         h2.alert.alert-warning #{wrongInput}
+
+      form.mx-auto.card.w-25.p-3(method="post")
+
+         div.form-group.mt-3
+
+            label Username:
+
+            input.mt-1.form-control(type="text" name="username" placeholder=" Enter username ")
+
+         div.form-group.mt-3
+
+            label Password:
+
+            input.mt-1.form-control(type="password" name="password" placeholder=" Enter password ")
+
+         div.form-group.mt-4.d-flex.justify-content-between.align-items-end
+
+            input.btn.btn-primary(type="submit" value="Register")
+
+            a.ml-auto(href="login") Sign in to your account
+
