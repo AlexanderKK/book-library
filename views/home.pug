@@ -311,7 +311,7 @@ html
 					const date = newTime.innerText.split(" ")[0];
 					const time = newTime.innerText.split(" ")[1];
 					const timeArr = time.split(":");
-					const timeSec = Number(timeArr[0]) * 3600 + Number(timeArr[1]) * 60 + Number(timeArr[2]) + (3600 * 3);
+					const timeSec = Number(timeArr[0]) * 3600 + Number(timeArr[1]) * 60 + Number(timeArr[2]) + (3600 * 2);
 
 					let hours = parseInt(timeSec / 3600);
 					let minutes = parseInt(timeSec % 3600 / 60);
