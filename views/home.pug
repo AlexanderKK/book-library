@@ -95,8 +95,8 @@ html
 												<td> ${book.author} </td>
 												<td> ${book.genre} </td>
 												<td> ${book.price} $ </td>
-												<td> ${book.date_created} </td>
-												<td> ${book.date_modified} </td>
+												<td class="date"> ${book.date_created} </td>
+												<td class="date"> ${book.date_modified} </td>
 												<td class="text-center">
 													<button id="triggerUpdate" class="btn btn-outline-info btn-sm" 
 														data-bs-target="#modalUpdate" 
@@ -166,8 +166,8 @@ html
 									td #{book.author}
 									td #{book.genre}
 									td #{book.price} $
-									td #{book.date_created}
-									td #{book.date_modified}
+									td.date #{book.date_created}
+									td.date #{book.date_modified}
 									td.text-center
 										button#triggerUpdate.btn.btn-outline-info.btn-sm(
 											data-bs-target="#modalUpdate" 
@@ -200,6 +200,7 @@ html
 								$('#deleteModal').modal('show');
 								$('.editID').val($(this).data('id'));
 							});
+
 
 		.col-12.text-center.position-absolute.bottom-0.py-3.bg-light For academic purposes only ©
 
@@ -302,10 +303,32 @@ html
 					type="button"
 					) No
 
-		//- script.
-			//- const inputs = document.querySelectorAll('.modal-dialog .form-group input');
-			//- for(input of inputs) {
-			//- 	input.addEventListener('change', function(evt) {
-			//- 		this.value = this.value.trim();
-			//- 	});
-			//- }
+		script.
+			setTimeout(function() {
+				var issueTime = document.querySelectorAll('.date');
+
+				for (var newTime of issueTime) {
+					const time = newTime.innerText.split(" ")[1];
+					const timeArr = time.split(":");
+					var timeSec = Number(timeArr[0]) * 3600 + Number(timeArr[1]) * 60 + Number(timeArr[2]) + 3600;
+
+					let hours = parseInt(timeSec / 3600);
+					let minutes = parseInt(timeSec % 3600 / 60);
+					let seconds = parseInt(timeSec % 3600 % 60);
+					
+					if(hours < 10){
+						hours = "0" + hours
+					}
+					if(minutes < 10){
+						minutes = "0" + minutes
+					}
+					if(seconds < 10){
+						seconds = "0" + seconds
+					}
+					if(hours > 23){
+						hours = "0" + 0
+					}
+					var timeNew = hours + ":" + minutes + ":" + seconds
+					newTime.innerText = newTime.innerText.split(" ")[0] + " " + String(timeNew);
+				}
+			}, 100)
