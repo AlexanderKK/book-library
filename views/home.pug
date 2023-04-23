@@ -308,27 +308,74 @@ html
 				var issueTime = document.querySelectorAll('.date');
 
 				for (var newTime of issueTime) {
+					const date = newTime.innerText.split(" ")[0];
 					const time = newTime.innerText.split(" ")[1];
 					const timeArr = time.split(":");
-					var timeSec = Number(timeArr[0]) * 3600 + Number(timeArr[1]) * 60 + Number(timeArr[2]) + (3600 * 3);
+					const timeSec = Number(timeArr[0]) * 3600 + Number(timeArr[1]) * 60 + Number(timeArr[2]) + (3600 * 3);
 
 					let hours = parseInt(timeSec / 3600);
 					let minutes = parseInt(timeSec % 3600 / 60);
 					let seconds = parseInt(timeSec % 3600 % 60);
+
+					let dayOfMonth = Number(date.split("-")[2]);
+					let month = Number(date.split("-")[1]);
+					let year = Number(date.split("-")[0]);
 					
 					if(hours < 10){
-						hours = "0" + hours
+						hours = "0" + hours;
 					}
 					if(minutes < 10){
-						minutes = "0" + minutes
+						minutes = "0" + minutes;
 					}
 					if(seconds < 10){
-						seconds = "0" + seconds
+						seconds = "0" + seconds;
 					}
 					if(hours > 23){
-						hours = "0" + 0
+						hours = "0" + 0;
+
+						dayOfMonth++;
+
+						if(month == 2) {   //February
+							if(((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0)) {
+								if(dayOfMonth > 29) {
+									dayOfMonth = 1;
+									month++;
+								}
+							} else {
+								if(dayOfMonth > 28) {
+									dayOfMonth = 1;
+									month++;
+								}
+							}
+						} else if((month % 2 != 0 && month < 8) || (month % 2 == 0 && month >= 8)) {   //Check odd months before August and even months after August
+							if(dayOfMonth > 31) {
+								dayOfMonth = 1;
+								month++;
+							}
+						} else {
+							if(dayOfMonth > 30) {
+								dayOfMonth = 1;
+								month++;
+							}
+						}
+
+						if(month > 12) {
+							month = 1;
+							year++;
+						}
 					}
-					var timeNew = hours + ":" + minutes + ":" + seconds
-					newTime.innerText = newTime.innerText.split(" ")[0] + " " + String(timeNew);
+
+					if(month < 10) {
+						month = "0" + month;
+					}
+
+					if(dayOfMonth < 10) {
+						dayOfMonth = "0" + dayOfMonth;
+					}
+
+					var dateNew = `${year}-${month}-${dayOfMonth}`;
+					var timeNew = hours + ":" + minutes + ":" + seconds;
+
+					newTime.innerText = dateNew + " " + timeNew;
 				}
 			}, 100)
