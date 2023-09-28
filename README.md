@@ -1,2 +1,2 @@
 # library-ExpressJS
- Book Library
+ Main focus of this project is storing data about books using Express.js
